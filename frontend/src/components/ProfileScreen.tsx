@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
-import { useTelegram } from '../contexts/TelegramContext';
 import styles from './ProfileScreen.module.css';
 import { API_ENDPOINTS } from '../config/api';
 
