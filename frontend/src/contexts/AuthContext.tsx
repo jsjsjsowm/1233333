@@ -92,6 +92,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const initAuth = async () => {
+      console.log('AuthContext: Initializing auth...', { isReady, telegramUser: telegramUser ? 'exists' : 'missing' });
+      
+      // For development/demo purposes, use mock data instead of real API calls
+      setTimeout(() => {
+        const mockUser: User = {
+          id: '1',
+          telegramId: telegramUser?.id?.toString() || '123456789',
+          username: telegramUser?.username || 'demo_user',
+          firstName: telegramUser?.first_name || 'Demo',
+          lastName: telegramUser?.last_name || 'User',
+          balance: 1000
+        };
+        
+        const mockToken = 'mock_jwt_token_' + Date.now();
+        
+        setUser(mockUser);
+        setToken(mockToken);
+        localStorage.setItem('token', mockToken);
+        setIsLoading(false);
+        
+        console.log('AuthContext: Mock auth completed', mockUser);
+      }, 500);
+
+      // TODO: Replace with real API calls when backend is deployed
+      /*
       if (!isReady) return;
 
       // Check for stored token
@@ -136,6 +161,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       setIsLoading(false);
+      */
     };
 
     initAuth();
