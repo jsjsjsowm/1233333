@@ -8,7 +8,7 @@ import BettingPanel from './BettingPanel';
 import GameResult from './GameResult';
 import styles from './GameScreen.module.css';
 
-interface GameResult {
+interface GameResultData {
   gameId: string;
   result: number;
   isWin: boolean;
@@ -20,7 +20,7 @@ interface GameResult {
 
 const GameScreen: React.FC = () => {
   const [isSpinning, setIsSpinning] = useState(false);
-  const [gameResult, setGameResult] = useState<GameResult | null>(null);
+  const [gameResult, setGameResult] = useState<GameResultData | null>(null);
   const [showResult, setShowResult] = useState(false);
   const { user, token, updateBalance } = useAuth();
   const { webApp } = useTelegram();
