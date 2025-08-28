@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import styles from './RouletteWheel.module.css';
 
@@ -24,7 +24,7 @@ const RouletteWheel: React.FC<RouletteWheelProps> = ({ onSpinComplete, isSpinnin
     return redNumbers.includes(num) ? 'red' : 'black';
   };
 
-  const spinWheel = (targetNumber: number) => {
+  const spinWheel = useCallback((targetNumber: number) => {
     const targetIndex = numbers.indexOf(targetNumber);
     const sectorAngle = 360 / numbers.length;
     const targetAngle = targetIndex * sectorAngle;
@@ -39,13 +39,13 @@ const RouletteWheel: React.FC<RouletteWheelProps> = ({ onSpinComplete, isSpinnin
     setTimeout(() => {
       onSpinComplete(targetNumber);
     }, 4000);
-  };
+  }, [numbers, rotation, onSpinComplete]);
 
   React.useEffect(() => {
     if (isSpinning && targetNumber !== undefined) {
       spinWheel(targetNumber);
     }
-  }, [isSpinning, targetNumber]);
+  }, [isSpinning, targetNumber, spinWheel]);
 
   return (
     <div className={styles.wheelContainer}>
