@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import styles from './ProfileScreen.module.css';
-import { API_ENDPOINTS } from '../config/api';
 import { GameIcon, StatsIcon, HistoryIcon, TrophyIcon, CoinsIcon, WinIcon, LossIcon, LoadingIcon, EmptyIcon } from './Icons';
 
 interface GameHistory {
