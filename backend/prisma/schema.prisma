@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  telegramId  String   @unique
+  username    String?
+  firstName   String?
+  lastName    String?
+  balance     Float    @default(1000.0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  games       Game[]
+  transactions Transaction[]
+
+  @@map("users")
+}
+
+model Game {
+  id          String   @id @default(cuid())
+  userId      String
+  betAmount   Float
+  winAmount   Float?
+  result      Int      // Winning number (0-36)
+  isWin       Boolean
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@map("games")
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  userId      String
+  type        TransactionType
+  amount      Float
+  description String?
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@map("transactions")
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  BET
+  WIN
+}

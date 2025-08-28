@@ -1,0 +1,169 @@
+.gameScreen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.gameContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 16px;
+  color: white;
+}
+
+.loadingSpinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+.gameTitle {
+  text-align: center;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.gameTitle h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.gameTitle p {
+  font-size: 16px;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.wheelSection {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.statusMessage {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.spinningIndicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 16px 24px;
+  color: white;
+  font-weight: 500;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+.resultSection {
+  margin: 20px 0;
+}
+
+.bettingSection {
+  margin: 20px 0;
+}
+
+.rulesSection {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.rules {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  color: white;
+}
+
+.rules h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.rules ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rules li {
+  font-size: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rules li:last-child {
+  border-bottom: none;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .gameContainer {
+    gap: 16px;
+  }
+  
+  .gameTitle h2 {
+    font-size: 24px;
+  }
+  
+  .gameTitle p {
+    font-size: 14px;
+  }
+  
+  .rules {
+    padding: 16px;
+  }
+  
+  .rules h3 {
+    font-size: 16px;
+  }
+  
+  .rules li {
+    font-size: 13px;
+  }
+}
