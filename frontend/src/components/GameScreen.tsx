@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAuth } from '../contexts/AuthContext';
-import { useTelegram } from '../contexts/TelegramContext';
-import { API_ENDPOINTS } from '../config/api';
 import RouletteWheel from './RouletteWheel';
+import { useAuth } from '../contexts/AuthContext';
+import styles from './GameScreen.module.css';
+import { API_ENDPOINTS } from '../config/api';
+import { WinIcon, LossIcon, CoinsIcon, GameIcon, HistoryIcon } from './Icons';
 import BettingPanel from './BettingPanel';
 import GameResult from './GameResult';
-import styles from './GameScreen.module.css';
 
 interface GameResultData {
   gameId: string;
@@ -23,7 +23,6 @@ const GameScreen: React.FC = () => {
   const [gameResult, setGameResult] = useState<GameResultData | null>(null);
   const [showResult, setShowResult] = useState(false);
   const { user, token, updateBalance } = useAuth();
-  const { webApp } = useTelegram();
 
   const handleBet = async (betAmount: number) => {
     if (!user || !token) return;
@@ -33,8 +32,7 @@ const GameScreen: React.FC = () => {
       setGameResult(null);
       setShowResult(false);
 
-      // Haptic feedback
-      webApp?.HapticFeedback?.impactOccurred('medium');
+      // Haptic feedback would go here for Telegram Mini App
 
       const response = await fetch(API_ENDPOINTS.GAMES.PLAY_ROULETTE, {
         method: 'POST',
@@ -57,7 +55,6 @@ const GameScreen: React.FC = () => {
       
     } catch (error) {
       console.error('Bet error:', error);
-      webApp?.HapticFeedback?.notificationOccurred('error');
       setIsSpinning(false);
     }
   };
@@ -66,12 +63,7 @@ const GameScreen: React.FC = () => {
     setIsSpinning(false);
     setShowResult(true);
     
-    // Haptic feedback based on result
-    if (gameResult?.isWin) {
-      webApp?.HapticFeedback?.notificationOccurred('success');
-    } else {
-      webApp?.HapticFeedback?.notificationOccurred('error');
-    }
+    // Haptic feedback would go here for Telegram Mini App
   };
 
   const handlePlayAgain = () => {
@@ -172,12 +164,12 @@ const GameScreen: React.FC = () => {
           className={styles.rulesSection}
         >
           <div className={styles.rules}>
-            <h3>📋 Правила игры</h3>
+            <h3><HistoryIcon size={20} color="white" /> Правила игры</h3>
             <ul>
-              <li>🎯 Четные числа (кроме 0) = выигрыш x1.5</li>
-              <li>❌ Нечетные числа и 0 = проигрыш</li>
-              <li>💰 Минимальная ставка: 10 ₽</li>
-              <li>🎰 37 чисел: 0-36</li>
+              <li><WinIcon size={16} color="#34C759" /> Четные числа (кроме 0) = выигрыш x1.5</li>
+              <li><LossIcon size={16} color="#FF3B30" /> Нечетные числа и 0 = проигрыш</li>
+              <li><CoinsIcon size={16} color="#FFD700" /> Минимальная ставка: 10 ₽</li>
+              <li><GameIcon size={16} color="#007AFF" /> 37 чисел: 0-36</li>
             </ul>
           </div>
         </motion.div>
