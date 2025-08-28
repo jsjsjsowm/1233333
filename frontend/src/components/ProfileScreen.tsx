@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
-import { API_ENDPOINTS } from '../config/api';
+import { useTelegram } from '../contexts/TelegramContext';
 import styles from './ProfileScreen.module.css';
+import { API_ENDPOINTS } from '../config/api';
 
 interface GameHistory {
   id: string;
@@ -29,13 +30,7 @@ const ProfileScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'stats' | 'history'>('stats');
 
-  useEffect(() => {
-    if (user && token) {
-      fetchProfileData();
-    }
-  }, [user, token]);
-
-  const fetchProfileData = async () => {
+  const fetchProfileData = useCallback(async () => {
     try {
       setIsLoading(true);
       
@@ -63,7 +58,13 @@ const ProfileScreen: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    if (user && token) {
+      fetchProfileData();
+    }
+  }, [user, token, fetchProfileData]);
 
   const getNumberColor = (num: number) => {
     if (num === 0) return 'green';
